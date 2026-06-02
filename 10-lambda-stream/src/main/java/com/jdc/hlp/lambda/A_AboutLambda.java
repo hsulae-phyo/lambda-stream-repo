@@ -6,21 +6,25 @@ public class A_AboutLambda {
 	}
 	
 	static void afterLambda() {
-		Order order = () -> System.out.println("Checkout with lambda.");
-		order.checkout();
+		Order order = (a,b) -> a+b;
+		String res = order.checkout(20,"bb");
+		System.out.println(res);
 	}
 	
 	static void beforeLambda() {
 		Order order = new Order() {
 			@Override
-			public void checkout() {
+			public String checkout(int a, String b) {
 				System.out.println("Checkout with lambda.");
+				return a+b;
 			}
 		};
-		order.checkout();
+		order.checkout(30, "ss");
 	}
 }
 
+@FunctionalInterface
 interface Order{
-	void checkout();
+	String checkout(int a, String b);
+	default void show() {}
 }
